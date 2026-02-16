@@ -33,3 +33,6 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+
+# Ignore line ending differences (optional)
+*.json text eol=lf
