@@ -12,19 +12,8 @@ const paystackClient = paystack(process.env.PAYSTACK_SECRET_KEY);
 const app = express();
 const port = process.env.PORT || 3000;
 
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
-
-app.use(cors({
-  origin: [
-    'http://localhost:5173', 
-    'http://localhost:3000', 
-    'https://callygym-frontend.vercel.app', 
-    '*' 
-  ],
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-}));
 
 const prisma = new PrismaClient({ log: ['error'] });
 
@@ -292,42 +281,6 @@ app.post('/api/paystack/webhook', express.raw({ type: 'application/json' }), asy
   }
 
   res.sendStatus(200);
-});
-
-// One-time init route
-app.get('/api/init-db', async (req, res) => {
-  try {
-    await prisma.$connect();
-    await prisma.$executeRaw`CREATE TABLE IF NOT EXISTS "Contact" (
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      message TEXT NOT NULL,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    )`;
-
-    await prisma.$executeRaw`CREATE TABLE IF NOT EXISTS "FreeTrial" (
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL UNIQUE,
-      phone TEXT NOT NULL,
-      "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      "updatedAt" TIMESTAMP(3) NOT NULL
-    )`;
-
-    await prisma.$executeRaw`CREATE TABLE IF NOT EXISTS "Booking" (
-      id SERIAL PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      phone TEXT NOT NULL,
-      date TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
-    )`;
-
-    res.send('Database tables initialized successfully!');
-  } catch (err) {
-    console.error('Init DB error:', err);
-    res.status(500).send('Failed to initialize database: ' + err.message);
-  }
 });
 
 app.listen(port, () => {
