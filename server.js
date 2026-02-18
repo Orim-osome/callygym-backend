@@ -11,8 +11,6 @@ const paystackClient = paystack(process.env.PAYSTACK_SECRET_KEY);
 
 const app = express();
 
-const cors = require('cors');
-
 app.use(cors({
   origin: [
     'https://callygym-frontend-git-main-testimonys-projects-d315ec9a.vercel.app', // your exact live frontend URL
