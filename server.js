@@ -229,33 +229,33 @@ app.post('/api/free-trial', async (req, res) => {
       },
     });
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-  connectionTimeout: 30000,  // 30 seconds
-  greetingTimeout: 30000,
-  socketTimeout: 30000,
-    });
+//     const transporter = nodemailer.createTransport({
+//       service: 'gmail',
+//       auth: {
+//         user: process.env.EMAIL_USER,
+//         pass: process.env.EMAIL_PASS,
+//       },
+//   connectionTimeout: 30000,  // 30 seconds
+//   greetingTimeout: 30000,
+//   socketTimeout: 30000,
+//     });
 
-await transporter.sendMail({
-  from: `"CallyGym" <${process.env.EMAIL_USER}>`,
-  to: 'orurutestimony19@gmail.com',  
-  replyTo: email, 
-  subject: 'New Free Trial Request - CallyGym',
-  text: `New free trial request:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nSubmitted: ${new Date().toLocaleString('en-NG')}`,
-  html: `
-    <h2 style="color: #FF6B00;">New Free Trial Request</h2>
-    <p><strong>Name:</strong> ${name}</p>
-    <p><strong>Email:</strong> ${email}</p>
-    <p><strong>Phone:</strong> ${phone}</p>
-    <p><strong>Submitted:</strong> ${new Date().toLocaleString('en-NG')}</p>
-    <hr>
-    <p style="color: #666;">Reply to this email to contact the lead directly.</p>
-  `,
-});
+// await transporter.sendMail({
+//   from: `"CallyGym" <${process.env.EMAIL_USER}>`,
+//   to: 'orurutestimony19@gmail.com',  
+//   replyTo: email, 
+//   subject: 'New Free Trial Request - CallyGym',
+//   text: `New free trial request:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nSubmitted: ${new Date().toLocaleString('en-NG')}`,
+//   html: `
+//     <h2 style="color: #FF6B00;">New Free Trial Request</h2>
+//     <p><strong>Name:</strong> ${name}</p>
+//     <p><strong>Email:</strong> ${email}</p>
+//     <p><strong>Phone:</strong> ${phone}</p>
+//     <p><strong>Submitted:</strong> ${new Date().toLocaleString('en-NG')}</p>
+//     <hr>
+//     <p style="color: #666;">Reply to this email to contact the lead directly.</p>
+//   `,
+// });
 
     res.status(201).json({ message: 'Free trial request submitted' });
   } catch (err) {
