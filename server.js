@@ -14,13 +14,15 @@ const app = express();
 app.use(cors({
   origin: [
     'https://callygym-frontend-git-main-testimonys-projects-d315ec9a.vercel.app', // your exact live frontend URL
-    'https://callygym-frontend.vercel.app', // if you have a custom domain or alias
-    'http://localhost:5173', // for local dev
-    '*' // temporary fallback - remove later for security
+    'https://callygym-frontend.vercel.app', // if you have a custom domain/alias
+    'http://localhost:5173', // for local dev testing
+    '*' // temporary: allow all origins (remove this line later for security)
   ],
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type'],
   credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 
 const port = process.env.PORT || 3000;
