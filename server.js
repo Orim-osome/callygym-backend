@@ -126,6 +126,9 @@ app.post('/api/contact', async (req, res) => {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+  connectionTimeout: 30000,  // 30 seconds
+  greetingTimeout: 30000,
+  socketTimeout: 30000,
     });
 
     await transporter.sendMail({
@@ -236,6 +239,9 @@ app.post('/api/free-trial', async (req, res) => {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+  connectionTimeout: 30000,  // 30 seconds
+  greetingTimeout: 30000,
+  socketTimeout: 30000,
     });
 
 await transporter.sendMail({
