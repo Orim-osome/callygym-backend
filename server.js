@@ -10,9 +10,24 @@ const paystack = require('paystack');
 const paystackClient = paystack(process.env.PAYSTACK_SECRET_KEY);
 
 const app = express();
+
+const cors = require('cors');
+
+app.use(cors({
+  origin: [
+    'https://callygym-frontend-git-main-testimonys-projects-d315ec9a.vercel.app', // your exact live frontend URL
+    'https://callygym-frontend.vercel.app', // if you have a custom domain or alias
+    'http://localhost:5173', // for local dev
+    '*' // temporary fallback - remove later for security
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 const prisma = new PrismaClient({ log: ['error'] });
