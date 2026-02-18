@@ -348,6 +348,32 @@ app.get('/api/create-tables', async (req, res) => {
   }
 });
 
+// List recent free trials (for testing)
+app.get('/api/list-freetrials', async (req, res) => {
+  try {
+    const trials = await prisma.freeTrial.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 5, // last 5 records
+    });
+    res.json(trials);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// List recent contacts
+app.get('/api/list-contacts', async (req, res) => {
+  try {
+    const contacts = await prisma.contact.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 5,
+    });
+    res.json(contacts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
