@@ -283,6 +283,54 @@ app.post('/api/paystack/webhook', express.raw({ type: 'application/json' }), asy
   res.sendStatus(200);
 });
 
+// One-time table creation route 
+app.get('/api/create-tables', async (req, res) => {
+  try {
+    console.log('Creating tables...');
+    await prisma.$connect();
+
+    // Create FreeTrial table (matches your schema)
+    await prisma.$executeRaw`
+      CREATE TABLE IF NOT EXISTS "free_trials" (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        phone TEXT NOT NULL,
+        "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        "updatedAt" TIMESTAMP(3) NOT NULL
+      );
+    `;
+
+    // Create Contact table
+    await prisma.$executeRaw`
+      CREATE TABLE IF NOT EXISTS "Contact" (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        message TEXT NOT NULL,
+        "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+
+    // Create Booking table
+    await prisma.$executeRaw`
+      CREATE TABLE IF NOT EXISTS "Booking" (
+        id SERIAL PRIMARY KEY,
+        name TEXT NOT NULL,
+        email TEXT NOT NULL,
+        phone TEXT NOT NULL,
+        date TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+
+    console.log('Tables created successfully');
+    res.send('Tables created successfully! You can now use the forms.');
+  } catch (err) {
+    console.error('Table creation error:', err);
+    res.status(500).send('Failed to create tables: ' + err.message);
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
