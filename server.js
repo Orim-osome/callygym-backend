@@ -259,8 +259,7 @@ app.post('/api/free-trial', async (req, res) => {
 
     res.status(201).json({ message: 'Free trial request submitted' });
   } catch (err) {
-    console.error('Free trial error:', err);
-    res.status(500).json({ message: 'Failed to submit request' });
+    res.status(500).json({ message: 'Try submitting with a different email adress' });
   }
 });
 
