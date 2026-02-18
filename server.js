@@ -304,7 +304,7 @@ app.get('/api/create-tables', async (req, res) => {
     console.log('Creating tables...');
     await prisma.$connect();
 
-    // Create FreeTrial table (matches your schema)
+    // FreeTrial table (lowercase as per @@map("free_trials"))
     await prisma.$executeRaw`
       CREATE TABLE IF NOT EXISTS "free_trials" (
         id SERIAL PRIMARY KEY,
@@ -316,7 +316,7 @@ app.get('/api/create-tables', async (req, res) => {
       );
     `;
 
-    // Create Contact table
+    // Contact table (no @@map, so "Contact")
     await prisma.$executeRaw`
       CREATE TABLE IF NOT EXISTS "Contact" (
         id SERIAL PRIMARY KEY,
@@ -327,7 +327,7 @@ app.get('/api/create-tables', async (req, res) => {
       );
     `;
 
-    // Create Booking table
+    // Booking table (no @@map, so "Booking")
     await prisma.$executeRaw`
       CREATE TABLE IF NOT EXISTS "Booking" (
         id SERIAL PRIMARY KEY,
