@@ -119,30 +119,30 @@ app.post('/api/contact', async (req, res) => {
       },
     });
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-      connectionTimeout: 60000, // 60s
-      greetingTimeout: 60000,
-      socketTimeout: 60000,
-    });
+    // const transporter = nodemailer.createTransport({
+    //   service: 'gmail',
+    //   auth: {
+    //     user: process.env.EMAIL_USER,
+    //     pass: process.env.EMAIL_PASS,
+    //   },
+    //   connectionTimeout: 60000, // 60s
+    //   greetingTimeout: 60000,
+    //   socketTimeout: 60000,
+    // });
 
-    await transporter.sendMail({
-      from: `"CallyGym Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      replyTo: email,
-      subject: 'New Contact Message - CallyGym',
-      text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
-      html: `
-        <h2>New Contact Message</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong><br>${message.replace(/\n/g, '<br>')}</p>
-      `,
-    });
+    // await transporter.sendMail({
+    //   from: `"CallyGym Contact" <${process.env.EMAIL_USER}>`,
+    //   to: process.env.EMAIL_USER,
+    //   replyTo: email,
+    //   subject: 'New Contact Message - CallyGym',
+    //   text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
+    //   html: `
+    //     <h2>New Contact Message</h2>
+    //     <p><strong>Name:</strong> ${name}</p>
+    //     <p><strong>Email:</strong> ${email}</p>
+    //     <p><strong>Message:</strong><br>${message.replace(/\n/g, '<br>')}</p>
+    //   `,
+    // });
 
     res.status(200).json({ success: true, message: 'Message sent successfully!' });
   } catch (err) {
