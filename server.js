@@ -353,7 +353,7 @@ app.get('/api/list-freetrials', async (req, res) => {
   try {
     const trials = await prisma.freeTrial.findMany({
       orderBy: { createdAt: 'desc' },
-      take: 5, // last 5 records
+      take: 50, // last 5 records
     });
     res.json(trials);
   } catch (err) {
@@ -366,10 +366,24 @@ app.get('/api/list-contacts', async (req, res) => {
   try {
     const contacts = await prisma.contact.findMany({
       orderBy: { createdAt: 'desc' },
-      take: 5,
+      take: 50,
     });
     res.json(contacts);
   } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// List recent bookings
+app.get('/api/list-bookings', async (req, res) => {
+  try {
+    const bookings = await prisma.booking.findMany({
+      orderBy: { date: 'desc' },  // or 'createdAt' if you have that field
+      take: 50,               
+    });
+    res.json(bookings);
+  } catch (err) {
+    console.error('List bookings error:', err);
     res.status(500).json({ error: err.message });
   }
 });
