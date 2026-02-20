@@ -12,11 +12,10 @@ const paystackClient = paystack(process.env.PAYSTACK_SECRET_KEY);
 const app = express();
 
 app.use(cors({
-  origin: [
-    'https://callygym-frontend-git-main-testimonys-projects-d315ec9a.vercel.app', // your exact live frontend URL
-    'https://callygym-frontend.vercel.app', // if you have a custom domain/alias
-    'http://localhost:5173', // for local dev testing
-    '*' // temporary: allow all origins (remove this line later for security)
+origin: [
+    'https://callygym.vercel.app',
+    'http://localhost:5173', 
+    'http://localhost:3000'  
   ],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
