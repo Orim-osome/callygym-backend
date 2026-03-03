@@ -16,6 +16,7 @@ model Booking {
   email     String
   phone     String
   date      DateTime @default(now())   // when booking was made
+  @@map("booking")
 }
 
 model Contact {
@@ -24,6 +25,7 @@ model Contact {
   email     String
   message   String
  createdAt DateTime @default(now())
+ @@map("contact")
 }
 
 model FreeTrial {
