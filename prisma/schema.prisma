@@ -13,7 +13,7 @@ datasource db {
 model Booking {
   id        Int      @id @default(autoincrement())
   name      String
-  email     String
+  emial     String
   phone     String
   date      DateTime @default(now())   // when booking was made
   
@@ -23,7 +23,7 @@ model Booking {
 model Contact {
   id        Int      @id @default(autoincrement())
   name      String
-  email     String
+  emial     String
   message   String?
   createdAt DateTime @default(now())
 
@@ -33,7 +33,7 @@ model Contact {
 model FreeTrial {
   id        Int      @id @default(autoincrement())
   name      String
-  email     String   @unique
+  emial     String   @unique
   phone     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
